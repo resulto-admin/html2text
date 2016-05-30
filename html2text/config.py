@@ -39,6 +39,7 @@ IGNORE_EMPHASIS = False
 MARK_CODE = False
 DECODE_ERRORS = 'strict'
 PAD_TABLES = False
+NO_TABLE = False
 
 # Convert links with same href and text to <href> format if they are absolute links
 USE_AUTOMATIC_LINKS = True

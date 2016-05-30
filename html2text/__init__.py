@@ -79,6 +79,7 @@ class HTML2Text(HTMLParser.HTMLParser):
         self.mark_code = config.MARK_CODE
         self.wrap_links = config.WRAP_LINKS  # covered in cli
         self.pad_tables = config.PAD_TABLES  # covered in cli
+        self.no_table = config.NO_TABLE  # covered in cli
         self.tag_callback = None
 
         if out is None:  # pragma: no cover
@@ -561,6 +562,19 @@ class HTML2Text(HTMLParser.HTMLParser):
                     else:
                         self.o('</{0}>'.format(tag))
 
+            elif self.no_table:
+                if tag == "table":
+                    if start:
+                        self.table_start = True
+                if tag == "tr" and start:
+                    self.td_count = 0
+                if tag == "tr" and not start:
+                    self.soft_br()
+                if tag == "tr" and not start and self.table_start:
+                    self.soft_br()
+                    self.table_start = False
+                if tag in ["td", "th"] and start:
+                    self.td_count += 1
             else:
                 if tag == "table":
                     if start:

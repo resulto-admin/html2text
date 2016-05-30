@@ -31,6 +31,13 @@ def main():
         help="pad the cells to equal column width in tables"
     )
     p.add_option(
+        "--no-table",
+        dest="no_table",
+        action="store_true",
+        default=config.NO_TABLE,
+        help="do not attempt to visually represent table cells with border"
+    )
+    p.add_option(
         "--no-wrap-links",
         dest="wrap_links",
         action="store_false",
@@ -279,5 +286,6 @@ def main():
     h.mark_code = options.mark_code
     h.wrap_links = options.wrap_links
     h.pad_tables = options.pad_tables
+    h.no_table = options.no_table
 
     wrapwrite(h.handle(data))
